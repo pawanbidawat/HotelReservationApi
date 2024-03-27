@@ -138,3 +138,4 @@ C:\Users\s3\OneDrive\Desktop\MVC_Projects\MVC_Projects\HotelApi\HotelApi\bin\Deb
 C:\Users\s3\OneDrive\Desktop\MVC_Projects\MVC_Projects\HotelApi\HotelApi\bin\Debug\net8.0\Microsoft.AspNetCore.JsonPatch.dll
 C:\Users\s3\OneDrive\Desktop\MVC_Projects\MVC_Projects\HotelApi\HotelApi\bin\Debug\net8.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\Users\s3\OneDrive\Desktop\MVC_Projects\MVC_Projects\HotelApi\HotelApi\bin\Debug\net8.0\Newtonsoft.Json.Bson.dll
+C:\Users\s3\OneDrive\Desktop\MVC_Projects\MVC_Projects\HotelApi\HotelApi\obj\Debug\net8.0\HotelApi.sourcelink.json

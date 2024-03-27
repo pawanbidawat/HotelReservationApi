@@ -78,6 +78,40 @@ namespace HotelApi.Controllers
             return data;
         }
 
+
+        //getting room date range data using roomid
+        [HttpGet("GetRoomDateRange")]
+        public List<RoomDateRangeModel> GetRoomDateRange(int id)
+        {
+            var data =  _hotelData.GetRoomDateRange(id);
+            return data;
+        }
+
+        //getting room date range price details using daterangeId
+        [HttpGet("GetRoomDateRangeByDateRangeId")]
+        public RoomDateRangeModel GetRoomDateRangeByDateRangeId(int id)
+        {
+            var data = _hotelData.GetRoomDateRangeByDateRangeId(id);
+            return data;
+        }
+
+        //adding room date range details
+        [HttpPost("AddRoomDateRange")]
+        public bool AddRoomDateRange(RoomDateRangeModel model)
+        {
+            var data = _hotelData.AddRoomDateRange(model);
+            return data;
+        }
+
+
+        //updating room date range details
+        [HttpPut("UpdateRoomDateRangeByDateRangeId")]
+        public bool UpdateRoomDateRange(RoomDateRangeModel model)
+        {
+            var data = _hotelData.UpdateRoomDateRange(model);
+            return data;
+        }
+
         //adding rooms details
         [HttpPost("AddRoomDetails")]
         public bool AddRoomDetails([FromBody] HotelRoomModel room)
@@ -86,11 +120,19 @@ namespace HotelApi.Controllers
             return data;
         }
 
+        //delete room price details by daterangeId
+        [HttpDelete("DeleteRoomPriceByDateRangeId")]
+        public bool DeleteRoomPriceByDateRangeId(int id)
+        {
+            var data = _hotelData.DeleteRoomPriceByDateRangeId(id);
+            return data;
+        }
+
         //Edit Room Details
         [HttpPut("EditRoomByRoomId")]
-        public bool EditRoomDetails(int id ,HotelRoomModel model)
+        public bool EditRoomDetails(int id, HotelRoomModel model)
         {
-            var data = _hotelData.EditRoomDetails(id ,model);  
+            var data = _hotelData.EditRoomDetails(id, model);
             return data;
         }
 

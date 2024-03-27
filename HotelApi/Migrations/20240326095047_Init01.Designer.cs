@@ -4,6 +4,7 @@ using HotelApi.Models.DTO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HotelApi.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20240326095047_Init01")]
+    partial class Init01
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -33,18 +36,10 @@ namespace HotelApi.Migrations
                     b.Property<DateTime>("Date")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DateRangeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RoomDateRangeDateRangeId")
-                        .HasColumnType("int");
-
                     b.Property<int>("RoomId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("RoomDateRangeDateRangeId");
 
                     b.HasIndex("RoomId");
 
@@ -162,19 +157,11 @@ namespace HotelApi.Migrations
 
             modelBuilder.Entity("HotelApi.Models.DTO.BlackoutDateModel", b =>
                 {
-                    b.HasOne("HotelApi.Models.DTO.RoomDateRangeModel", "RoomDateRange")
-                        .WithMany("BlackoutDates")
-                        .HasForeignKey("RoomDateRangeDateRangeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("HotelApi.Models.DTO.HotelRoomModel", "RoomModel")
                         .WithMany("BlackoutDates")
                         .HasForeignKey("RoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("RoomDateRange");
 
                     b.Navigation("RoomModel");
                 });
@@ -211,11 +198,6 @@ namespace HotelApi.Migrations
                     b.Navigation("BlackoutDates");
 
                     b.Navigation("DateRanges");
-                });
-
-            modelBuilder.Entity("HotelApi.Models.DTO.RoomDateRangeModel", b =>
-                {
-                    b.Navigation("BlackoutDates");
                 });
 #pragma warning restore 612, 618
         }

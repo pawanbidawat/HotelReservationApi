@@ -12,6 +12,7 @@ namespace HotelApi.Models.DTO
         public DbSet<HotelDetailsModel> HotelDetails { get; set; }
         public DbSet<HotelRoomModel> HotelRooms { get; set; }  
         public DbSet<BlackoutDateModel> BlackoutDate { get; set;}
+        public DbSet<RoomDateRangeModel> RoomDateRanges { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

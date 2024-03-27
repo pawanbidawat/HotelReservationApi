@@ -12,6 +12,8 @@ namespace HotelApi.Models.DTO
         public int RoomId { get; set; }
 
         [ForeignKey(nameof(RoomId))]
-        public HotelRoomModel? RoomModel { get; set; }
+        public HotelRoomModel? RoomModel { get; set; } 
+       
+      
     }
 }

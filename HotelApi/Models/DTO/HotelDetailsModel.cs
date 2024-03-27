@@ -14,6 +14,7 @@ namespace HotelApi.Models.DTO
         public string? HotelImage { get; set; }
         public decimal Rating { get; set; }
         public List<HotelRoomModel>? RoomDetails { get; set; }
+        
 
     }
 }

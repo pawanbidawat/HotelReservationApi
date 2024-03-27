@@ -16,7 +16,7 @@ namespace HotelApi.Repository.Services
 
         public List<HotelDetailsModel> GetAllHotels()
         {
-            var data = _context.HotelDetails.Include(x=>x.RoomDetails).ToList();
+            var data = _context.HotelDetails.Include(x => x.RoomDetails).ThenInclude(y => y.DateRanges).ToList();
             return data;
         }
 
@@ -35,11 +35,14 @@ namespace HotelApi.Repository.Services
         public IQueryable<HotelRoomModel> GetHotelAndRoomByDate(HotelFilterModel filter)
         {
             var query = _context.HotelRooms
+                                .Include(x=>x.BlackoutDates)
                                 .Include(hotelRoom => hotelRoom.Hotel)
+                                .Include(hotelRoom => hotelRoom.DateRanges)
                                 .AsQueryable();
-           
-            query = query.Where(x => (x.DateFrom <= filter.DateTo && x.DateTo >= filter.DateFrom));
-            
+
+            query = query.Where(hotelRoom => hotelRoom.DateRanges.Any(dateRange =>
+         (dateRange.DateFrom <= filter.DateTo && dateRange.DateTo >= filter.DateFrom)));
+
 
             return query;
         }
@@ -76,6 +79,59 @@ namespace HotelApi.Repository.Services
             return false;
         }
 
+        //service for getting room date range data
+        public List<RoomDateRangeModel> GetRoomDateRange(int id)
+        {
+            var data = _context.RoomDateRanges.Where(x=>x.RoomId == id).ToList();
+            return data;
+
+        }
+
+        public RoomDateRangeModel GetRoomDateRangeByDateRangeId(int id)
+        {
+            var data = _context.RoomDateRanges.FirstOrDefault(x=>x.DateRangeId==id);
+            return data;
+
+        }
+        //service for adding room date range details
+        public bool AddRoomDateRange(RoomDateRangeModel model)
+        {
+            _context.RoomDateRanges.Add(model);
+            int data = _context.SaveChanges();
+            return data > 0;
+        }
+
+        //service for updating room date range details
+        public bool UpdateRoomDateRange( RoomDateRangeModel model)
+        {
+            try
+            {
+                var existingRoomDateRange = _context.RoomDateRanges.FirstOrDefault(x => x.DateRangeId == model.DateRangeId);
+                if (existingRoomDateRange != null)
+                {                    
+                    existingRoomDateRange.DateFrom = model.DateFrom;
+                    existingRoomDateRange.DateTo = model.DateTo;
+                    existingRoomDateRange.SingleRate = model.SingleRate;
+                    existingRoomDateRange.DoubleRate = model.DoubleRate;
+                    existingRoomDateRange.TripleRate = model.TripleRate;
+                    existingRoomDateRange.AdultRate = model.AdultRate;
+                    existingRoomDateRange.ChildRate = model.ChildRate;
+                    existingRoomDateRange.SingleEqualDouble = model.SingleEqualDouble;
+                    existingRoomDateRange.ExceptionCase = model.ExceptionCase;
+                    existingRoomDateRange.NoExtraAdult = model.NoExtraAdult;
+                    existingRoomDateRange.NoChild = model.NoChild;
+
+                    _context.SaveChanges();
+                    return true;
+                }
+                return false; 
+            }
+            catch (Exception ex)
+            {
+               
+                return false;
+            }
+        }
         //adding service for adding room details
         public bool AddRoomDetails(HotelRoomModel room)
         {
@@ -83,6 +139,7 @@ namespace HotelApi.Repository.Services
             int data = _context.SaveChanges();
             return data > 0;
         }
+
 
         //service for updating room details
         public bool EditRoomDetails(int id, HotelRoomModel model)
@@ -95,18 +152,8 @@ namespace HotelApi.Repository.Services
                 {
 
                     data.RoomImage = model.RoomImage;
-                    data.TripleRate = model.TripleRate;
-                    data.ExceptionCase = model.ExceptionCase;                   
-                    data.DateFrom = model.DateFrom;
-                    data.DateTo = model.DateTo;
-                    data.ChildRate = model.ChildRate;
-                    data.AdultRate = model.AdultRate;
-                    data.SingleRate = model.SingleRate;
-                    data.DoubleRate = model.DoubleRate;
-                    data.NoChild = model.NoChild;
-                    data.SingleEqualDouble = model.SingleEqualDouble;
-                    data.NoExtraAdult = model.NoExtraAdult;
-
+                    data.RoomType = model.RoomType;
+                    data.Description = model.Description;
                     int response = _context.SaveChanges();
                     return response > 0;
                 }
@@ -118,14 +165,14 @@ namespace HotelApi.Repository.Services
         //service for showing rooms with hotel id
         public List<HotelRoomModel> GetRoomsByHotelId(int Id)
         {
-            var data = _context.HotelRooms.Include(x=>x.Hotel).Where(x => x.Hotel.HotelId == Id).ToList();
+            var data = _context.HotelRooms.Include(x=>x.Hotel).Include(y=>y.DateRanges).Where(x => x.Hotel.HotelId == Id).ToList();
             return data;
         }
 
         //getting room detail by id 
         public HotelRoomModel GetRoomDetailsByRoomId(int id)
         {
-            var data = _context.HotelRooms.FirstOrDefault(x => x.RoomId == id);
+            var data = _context.HotelRooms.Include(x => x.DateRanges).FirstOrDefault(x => x.RoomId == id);
             return data;
         }
 
@@ -136,6 +183,19 @@ namespace HotelApi.Repository.Services
             if (data != null)
             {
                 _context.HotelRooms.Remove(data);
+                _context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        //deleting room price details by DateRangeId
+        public bool DeleteRoomPriceByDateRangeId(int id)
+        {
+            var data = _context.RoomDateRanges.FirstOrDefault(x=>x.DateRangeId == id);
+            if (data != null)
+            {
+                _context.RoomDateRanges.Remove(data);
                 _context.SaveChanges();
                 return true;
             }

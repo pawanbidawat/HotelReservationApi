@@ -48,6 +48,32 @@
   },
   {
     "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "AddRoomDateRange",
+    "RelativePath": "api/HotelApi/AddRoomDateRange",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "HotelApi.Models.DTO.RoomDateRangeModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
     "Method": "AddRoomDetails",
     "RelativePath": "api/HotelApi/AddRoomDetails",
     "HttpMethod": "POST",
@@ -76,6 +102,32 @@
     "ContainingType": "HotelApi.Controllers.HotelApiController",
     "Method": "DeleteRoomById",
     "RelativePath": "api/HotelApi/DeleteRoomById",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "DeleteRoomPriceByDateRangeId",
+    "RelativePath": "api/HotelApi/DeleteRoomPriceByDateRangeId",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -286,6 +338,58 @@
   },
   {
     "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "GetRoomDateRange",
+    "RelativePath": "api/HotelApi/GetRoomDateRange",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[HotelApi.Models.DTO.RoomDateRangeModel, HotelApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "GetRoomDateRangeByDateRangeId",
+    "RelativePath": "api/HotelApi/GetRoomDateRangeByDateRangeId",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "HotelApi.Models.DTO.RoomDateRangeModel",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
     "Method": "GetRoomsByHotelId",
     "RelativePath": "api/HotelApi/GetRoomDetailsByHotelId",
     "HttpMethod": "GET",
@@ -348,6 +452,32 @@
         "Name": "id",
         "Type": "System.Int32",
         "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "UpdateRoomDateRange",
+    "RelativePath": "api/HotelApi/UpdateRoomDateRangeByDateRangeId",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "HotelApi.Models.DTO.RoomDateRangeModel",
+        "IsRequired": true
       }
     ],
     "ReturnTypes": [
