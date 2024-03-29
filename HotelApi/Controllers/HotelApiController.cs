@@ -36,11 +36,20 @@ namespace HotelApi.Controllers
  
         //getting hotel and room details by dates
         [HttpPost("GetHotelAndRoomByDate")]
-        public async Task<List<HotelRoomModel>> GetHotelAndRoomByDate([FromBody] HotelFilterModel model)
+        public async Task<List<HotelDetailsModel>> GetHotelAndRoomByDate([FromBody] HotelFilterModel model)
         {
             var query = _hotelData.GetHotelAndRoomByDate(model);
             var results = await query.ToListAsync();
             return results;
+        }
+
+        [HttpPost("GetHotelFilterRoom")]
+        public async Task<List<HotelRoomModel>> GetHotelFilterRoom([FromBody] HotelFilterModel model)
+        {
+            var query = _hotelData.GetHotelFilterRoom(model);
+            var results = await query.ToListAsync();
+            return results;
+
         }
 
 

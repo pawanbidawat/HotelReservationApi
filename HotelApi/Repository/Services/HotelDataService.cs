@@ -32,16 +32,34 @@ namespace HotelApi.Repository.Services
             return query;
         }
       
-        public IQueryable<HotelRoomModel> GetHotelAndRoomByDate(HotelFilterModel filter)
+        public IQueryable<HotelDetailsModel> GetHotelAndRoomByDate(HotelFilterModel filter)
+        {
+            var query = _context.HotelDetails
+                                
+                                .Include(h => h.RoomDetails)
+                                .ThenInclude(h => h.DateRanges)
+                                .AsQueryable();
+
+         query = query.Where(h => h.RoomDetails.Any(rd => rd.DateRanges.Any(dr =>
+        (dr.DateFrom <= filter.DateTo && dr.DateTo >= filter.DateFrom))));
+
+
+            return query;
+        }
+
+
+        //getting filter room using hotel id
+        public IQueryable<HotelRoomModel> GetHotelFilterRoom(HotelFilterModel filter)
         {
             var query = _context.HotelRooms
-                                .Include(x=>x.BlackoutDates)
+                                .Include(x => x.BlackoutDates)
                                 .Include(hotelRoom => hotelRoom.Hotel)
                                 .Include(hotelRoom => hotelRoom.DateRanges)
                                 .AsQueryable();
 
             query = query.Where(hotelRoom => hotelRoom.DateRanges.Any(dateRange =>
-         (dateRange.DateFrom <= filter.DateTo && dateRange.DateTo >= filter.DateFrom)));
+     (dateRange.DateFrom <= filter.DateTo && dateRange.DateTo >= filter.DateFrom)) && hotelRoom.HotelId == filter.hotelId);
+
 
 
             return query;

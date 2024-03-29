@@ -274,6 +274,32 @@
     ],
     "ReturnTypes": [
       {
+        "Type": "System.Collections.Generic.List\u00601[[HotelApi.Models.DTO.HotelDetailsModel, HotelApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "GetHotelFilterRoom",
+    "RelativePath": "api/HotelApi/GetHotelFilterRoom",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "model",
+        "Type": "HotelApi.Models.DTO.HotelFilterModel",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
         "Type": "System.Collections.Generic.List\u00601[[HotelApi.Models.DTO.HotelRoomModel, HotelApi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
