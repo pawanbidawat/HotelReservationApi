@@ -2,7 +2,7 @@
   {
     "ContainingType": "HotelApi.Controllers.HotelApiController",
     "Method": "AddBlackoutDates",
-    "RelativePath": "api/HotelApi/Addblackout-dates",
+    "RelativePath": "api/HotelApi/Addblackoutdates",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -18,7 +18,17 @@
         "IsRequired": true
       }
     ],
-    "ReturnTypes": []
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   },
   {
     "ContainingType": "HotelApi.Controllers.HotelApiController",
@@ -457,6 +467,37 @@
     "ReturnTypes": [
       {
         "Type": "HotelApi.Models.DTO.HotelRoomModel",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "HotelApi.Controllers.HotelApiController",
+    "Method": "RemoveBlackoutDates",
+    "RelativePath": "api/HotelApi/RemoveBlackoutDates",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "roomId",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "dates",
+        "Type": "System.Collections.Generic.List\u00601[[System.DateTime, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Boolean",
         "MediaTypes": [
           "text/plain",
           "application/json",

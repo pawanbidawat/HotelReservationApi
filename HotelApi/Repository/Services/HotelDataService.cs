@@ -34,8 +34,7 @@ namespace HotelApi.Repository.Services
       
         public IQueryable<HotelDetailsModel> GetHotelAndRoomByDate(HotelFilterModel filter)
         {
-            var query = _context.HotelDetails
-                                
+            var query = _context.HotelDetails                               
                                 .Include(h => h.RoomDetails)
                                 .ThenInclude(h => h.DateRanges)
                                 .AsQueryable();
@@ -244,6 +243,7 @@ namespace HotelApi.Repository.Services
             return false;
         }
 
+        //service for adding blackoutdates
         public async Task<bool> AddBlackoutDates(int roomId, [FromBody] List<DateTime> dates)
         {
            
@@ -265,6 +265,20 @@ namespace HotelApi.Repository.Services
             }
         }
 
+        //service for removing blackoutdates
+        public async Task<bool> RemoveBlackoutDates(int roomId, List<DateTime> dates)
+        {           
+            var blackoutDates = _context.BlackoutDate
+                                         .Where(x => x.RoomId == roomId && dates.Contains(x.Date));
+
+            if (blackoutDates.Any())
+            {              
+                _context.BlackoutDate.RemoveRange(blackoutDates);               
+                await _context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
 
         //service for getting blackout dates
         public List<BlackoutDateModel> getblackoutdates(int roomid) 

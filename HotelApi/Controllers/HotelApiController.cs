@@ -3,6 +3,7 @@ using HotelApi.Repository.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace HotelApi.Controllers
 {
@@ -170,12 +171,20 @@ namespace HotelApi.Controllers
         }
 
         //blackoutdate api
-        [HttpPost("Addblackout-dates")]
-        public async Task<IActionResult> AddBlackoutDates(int roomId, [FromBody] List<DateTime> dates)
+        [HttpPost("Addblackoutdates")]
+        public async Task<bool> AddBlackoutDates(int roomId, [FromBody] List<DateTime> dates)
         {
            var data =  await _hotelData.AddBlackoutDates(roomId,dates);
-           return Ok(data);
+           return data;
         }
+
+        [HttpPost("RemoveBlackoutDates")]
+        public async Task<bool>RemoveBlackoutDates(int roomId, List<DateTime> dates)
+        {
+            var data = await _hotelData.RemoveBlackoutDates(roomId, dates);
+            return data;
+        }
+
 
         [HttpGet("getblackoutdatesbyroomid")]
         public List<BlackoutDateModel> getblackoutdates(int roomid)

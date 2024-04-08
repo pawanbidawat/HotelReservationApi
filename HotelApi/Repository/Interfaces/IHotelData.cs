@@ -23,9 +23,10 @@ namespace HotelApi.Repository.Interfaces
         bool UpdateHotelDetails(int id,HotelDetailsModel hotelDetails);
 
         Task<bool> AddBlackoutDates(int roomId, [FromBody] List<DateTime> dates);
+        Task<bool> RemoveBlackoutDates(int roomId, List<DateTime> dates);
         List<BlackoutDateModel> getblackoutdates(int roomid);
         IQueryable<HotelDetailsModel> GetHotelSearchResult(string searchValue);
-        //IQueryable<HotelRoomModel> GetHotelAndRoomByDate(HotelRoomModel model);
+      
         IQueryable<HotelDetailsModel> GetHotelAndRoomByDate(HotelFilterModel filter);
         IQueryable<HotelRoomModel> GetHotelFilterRoom(HotelFilterModel filter);
     }
