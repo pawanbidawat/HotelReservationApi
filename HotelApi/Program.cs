@@ -24,14 +24,17 @@ builder.Services.AddScoped<IHotelData, HotelDataService>();
 //adding CORS
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("AllowSpecificOrigin",
+    options.AddPolicy("AllowAnyOrigin",
         builder =>
         {
-            builder.WithOrigins("https://localhost:44316") // frontend origin
-                   .AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .WithExposedHeaders("Content-Disposition")
-                   .SetIsOriginAllowed((host) => true); // any origin
+            // builder.WithOrigins("https://localhost:44316") // frontend origin
+            //        .AllowAnyHeader()
+            //        .AllowAnyMethod()
+            //        .WithExposedHeaders("Content-Disposition")
+            //        .SetIsOriginAllowed((host) => true); // any origin
+                      builder.WithOrigins("*")
+      .AllowAnyMethod()
+      .AllowAnyHeader();
         });
 });
 
@@ -43,7 +46,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-app.UseCors("AllowSpecificOrigin");
+app.UseCors("AllowAnyOrigin");
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
